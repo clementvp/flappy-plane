@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=3 uid="uid://cjd7nl1mn5lgh"]
+
+[ext_resource type="Script" path="res://nodes/gameOver/game_over.gd" id="1_4yc4g"]
+[ext_resource type="FontFile" uid="uid://b3r74p0f8iln5" path="res://assets/Font/LuckiestGuy-Regular.ttf" id="2_lyg0y"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_ir1rr"]
+font = ExtResource("2_lyg0y")
+font_size = 55
+font_color = Color(0.117647, 0.0823529, 0.184314, 0.882353)
+outline_color = Color(0.878431, 0.819608, 0.686275, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.160784)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gty8w"]
+font = ExtResource("2_lyg0y")
+font_size = 55
+font_color = Color(0.117647, 0.0823529, 0.184314, 0.882353)
+outline_color = Color(0.878431, 0.819608, 0.686275, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.160784)
+
+[sub_resource type="Animation" id="Animation_besga"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/PressSpaceLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qefq4"]
+resource_name = "fade_away"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("MarginContainer/PressSpaceLabel:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.176471), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tro6i"]
+_data = {
+"RESET": SubResource("Animation_besga"),
+"fade_away": SubResource("Animation_qefq4")
+}
+
+[node name="GameOver" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4yc4g")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="GameOverlabel" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "GAME OVER"
+label_settings = SubResource("LabelSettings_ir1rr")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PressSpaceLabel" type="Label" parent="MarginContainer"]
+visible = false
+layout_mode = 2
+text = "PRESS SPACE"
+label_settings = SubResource("LabelSettings_gty8w")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "fade_away"
+libraries = {
+"": SubResource("AnimationLibrary_tro6i")
+}
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

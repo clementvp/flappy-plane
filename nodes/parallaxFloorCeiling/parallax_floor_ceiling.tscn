@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://bjtwdprt8u0qd"]
+
+[ext_resource type="Script" path="res://nodes/parallaxFloorCeiling/parallax_floor_ceiling.gd" id="1_qns4q"]
+[ext_resource type="Texture2D" uid="uid://dvv3a57xs023a" path="res://assets/SVG/Ground.svg" id="2_bgdug"]
+
+[node name="ParallaxFloorCeiling" type="ParallaxBackground"]
+script = ExtResource("1_qns4q")
+
+[node name="GroundCeiling" type="ParallaxLayer" parent="."]
+z_as_relative = false
+motion_scale = Vector2(0.2, 0.2)
+motion_mirroring = Vector2(809, 0)
+
+[node name="Ground" type="StaticBody2D" parent="GroundCeiling"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="GroundCeiling/Ground"]
+texture = ExtResource("2_bgdug")
+centered = false
+offset = Vector2(0, 793)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundCeiling/Ground"]
+position = Vector2(0, 10)
+polygon = PackedVector2Array(0, 816, 0, 896, 808, 896, 809, 819, 764, 809, 744, 783, 659, 787, 637, 807, 598, 810, 573, 837, 535, 838, 510, 827, 471, 827, 437, 796, 373, 795, 349, 811, 309, 811, 249, 788, 157, 792, 134, 817, 92, 828, 42, 824, 33, 817)
+
+[node name="Ceiling" type="StaticBody2D" parent="GroundCeiling"]
+collision_layer = 4
+collision_mask = 0
+
+[node name="Sprite2D" type="Sprite2D" parent="GroundCeiling/Ceiling"]
+position = Vector2(809, 850)
+rotation = 3.14159
+texture = ExtResource("2_bgdug")
+centered = false
+offset = Vector2(0, 793)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="GroundCeiling/Ceiling"]
+position = Vector2(809, 850)
+rotation = 3.14159
+polygon = PackedVector2Array(0, 816, 0, 896, 808, 896, 809, 819, 764, 809, 744, 783, 659, 787, 637, 807, 598, 810, 573, 837, 535, 838, 510, 827, 471, 827, 437, 796, 373, 795, 349, 811, 309, 811, 249, 788, 157, 792, 134, 817, 92, 828, 42, 824, 33, 817)

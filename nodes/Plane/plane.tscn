@@ -1,0 +1,92 @@
+[gd_scene load_steps=11 format=3 uid="uid://c21cnsj11xsmk"]
+
+[ext_resource type="Script" path="res://nodes/Plane/plane.gd" id="1_lgmx2"]
+[ext_resource type="Texture2D" uid="uid://ceegym5ok4ni3" path="res://assets/Spritesheet/planes.png" id="1_s2ab5"]
+[ext_resource type="PackedScene" uid="uid://c1bwail1rpcl4" path="res://nodes/ExplosionSprite/explosion_sprite.tscn" id="3_n47d7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfinq"]
+atlas = ExtResource("1_s2ab5")
+region = Rect2(88, 73, 88, 73)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1tqyd"]
+atlas = ExtResource("1_s2ab5")
+region = Rect2(88, 146, 88, 73)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_82fus"]
+atlas = ExtResource("1_s2ab5")
+region = Rect2(88, 219, 88, 73)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5w0rr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfinq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1tqyd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_82fus")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Animation" id="Animation_toden"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_n5jpr"]
+resource_name = "boost"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, -0.436332, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7puos"]
+_data = {
+"RESET": SubResource("Animation_toden"),
+"boost": SubResource("Animation_n5jpr")
+}
+
+[node name="Plane" type="CharacterBody2D" groups=["plane"]]
+collision_mask = 4
+script = ExtResource("1_lgmx2")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_5w0rr")
+autoplay = "default"
+frame_progress = 0.29538
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_7puos")
+}
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PackedVector2Array(11.0152, 36.5433, 16.8552, 36.7101, 20.1088, 35.3753, 23.5294, 32.2885, 24.1133, 28.8679, 27.1167, 28.6176, 28.7019, 27.7834, 31.9555, 25.6977, 42.1337, 14.9355, 42.0555, -5.10623, 29.8625, -17.2992, 30.3881, -36.5347, -19.8555, -36.5347, -23.7447, -30.3331, -27.844, -25.0775, -43.9262, -25.0775, -44.2415, -14.1459, -42.4546, -8.99538, -39.1961, -4.16022, -35.6223, -4.37045, -22.0629, 11.081, -24.2702, 14.4446, -25.8469, 16.3366, -26.2673, 20.6462, -25.5316, 21.382, -25.006, 24.6405, -21.9577, 28.1092, -15.9664, 28.5296, -13.9692, 27.3734, -12.2874, 25.5865, -12.0772, 24.3251, 1.42033, 28.7527, 3.53925, 28.7527, 5.52575, 31.6662, 7.90954, 34.05)
+
+[node name="ExplosionSprite" parent="." instance=ExtResource("3_n47d7")]
+scale = Vector2(2, 2)

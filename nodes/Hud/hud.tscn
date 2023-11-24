@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn6tel161sy4k"]
+
+[ext_resource type="Script" path="res://nodes/Hud/hud.gd" id="1_ejjsi"]
+[ext_resource type="LabelSettings" uid="uid://o4n4uv7g5t3m" path="res://nodes/LabelSetting/label_settings.tres" id="1_xb43y"]
+
+[node name="Hud" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ejjsi")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 86.0
+grow_horizontal = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+text = "0"
+label_settings = ExtResource("1_xb43y")

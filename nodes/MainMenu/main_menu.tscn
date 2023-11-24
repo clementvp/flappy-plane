@@ -1,0 +1,169 @@
+[gd_scene load_steps=15 format=3 uid="uid://p0ouy5col7it"]
+
+[ext_resource type="Script" path="res://nodes/MainMenu/main_menu.gd" id="1_fxtgs"]
+[ext_resource type="FontFile" uid="uid://b3r74p0f8iln5" path="res://assets/Font/LuckiestGuy-Regular.ttf" id="2_xysfx"]
+[ext_resource type="Texture2D" uid="uid://ceegym5ok4ni3" path="res://assets/Spritesheet/planes.png" id="3_mp58c"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_8gc0a"]
+font = ExtResource("2_xysfx")
+font_size = 72
+font_color = Color(0.117647, 0.0823529, 0.164706, 0.882353)
+outline_color = Color(0.117647, 0.0823529, 0.164706, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.160784)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kyebi"]
+font = ExtResource("2_xysfx")
+font_size = 55
+font_color = Color(0.117647, 0.0823529, 0.164706, 0.882353)
+outline_color = Color(0.878431, 0.819608, 0.686275, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.160784)
+
+[sub_resource type="Animation" id="Animation_r5mu5"]
+resource_name = "Fade_away_title"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CTA:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0.172549), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_nsnn6"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CTA:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_27lbo"]
+_data = {
+"Fade_away_title": SubResource("Animation_r5mu5"),
+"RESET": SubResource("Animation_nsnn6")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_q3inf"]
+font = ExtResource("2_xysfx")
+font_size = 35
+font_color = Color(0.117647, 0.0823529, 0.164706, 0.882353)
+outline_color = Color(0.878431, 0.819608, 0.686275, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.160784)
+
+[sub_resource type="LabelSettings" id="LabelSettings_4023b"]
+font = ExtResource("2_xysfx")
+font_size = 35
+font_color = Color(0.117647, 0.0823529, 0.164706, 0.882353)
+outline_color = Color(0.878431, 0.819608, 0.686275, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.160784)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v1fhw"]
+atlas = ExtResource("3_mp58c")
+region = Rect2(88, 73, 88, 73)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gyduh"]
+atlas = ExtResource("3_mp58c")
+region = Rect2(88, 146, 88, 73)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkfo2"]
+atlas = ExtResource("3_mp58c")
+region = Rect2(88, 219, 88, 73)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7fm3v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1fhw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gyduh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkfo2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_fxtgs")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
+theme_override_constants/margin_bottom = 12
+
+[node name="Title" type="Label" parent="MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 0
+text = "Flappy
+Plane"
+label_settings = SubResource("LabelSettings_8gc0a")
+horizontal_alignment = 1
+
+[node name="CTA" type="Label" parent="MarginContainer"]
+layout_mode = 2
+text = "Press Space
+To Play"
+label_settings = SubResource("LabelSettings_kyebi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="MarginContainer"]
+autoplay = "Fade_away_title"
+libraries = {
+"": SubResource("AnimationLibrary_27lbo")
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HighscoreLabel" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 8
+text = "Highscore"
+label_settings = SubResource("LabelSettings_q3inf")
+
+[node name="HighScore" type="Label" parent="MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+text = "0"
+label_settings = SubResource("LabelSettings_4023b")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(72, 300)
+sprite_frames = SubResource("SpriteFrames_7fm3v")
+autoplay = "default"
+frame_progress = 0.694549

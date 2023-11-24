@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://v0fotrip7lre"]
+
+[ext_resource type="PackedScene" uid="uid://3i4eqdmktmwb" path="res://nodes/Spike/spike.tscn" id="1_ovotp"]
+[ext_resource type="Script" path="res://nodes/Spikes/spikes.gd" id="1_wsjhr"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5lfi6"]
+size = Vector2(10, 208)
+
+[node name="spikes" type="Node2D"]
+script = ExtResource("1_wsjhr")
+
+[node name="Lower" parent="." instance=ExtResource("1_ovotp")]
+position = Vector2(11, 100)
+
+[node name="Upper" parent="." instance=ExtResource("1_ovotp")]
+position = Vector2(-12, -100)
+rotation = 3.14159
+
+[node name="Scoring" type="Area2D" parent="."]
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Scoring"]
+position = Vector2(10, 0)
+shape = SubResource("RectangleShape2D_5lfi6")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(80, 0)
+
+[connection signal="body_entered" from="Lower" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Upper" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Scoring" to="." method="_on_scoring_body_entered"]
+[connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="_on_visible_on_screen_notifier_2d_screen_exited"]

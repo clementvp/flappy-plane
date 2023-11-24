@@ -1,0 +1,22 @@
+[gd_scene load_steps=6 format=3 uid="uid://3w8hew84fljp"]
+
+[ext_resource type="PackedScene" uid="uid://p0ouy5col7it" path="res://nodes/MainMenu/main_menu.tscn" id="1_c5gsh"]
+[ext_resource type="Script" path="res://screens/main/main.gd" id="1_cgeln"]
+[ext_resource type="AudioStream" uid="uid://ckbvi045ax8em" path="res://assets/audio/bgm_menu.mp3" id="4_4nwio"]
+[ext_resource type="PackedScene" uid="uid://dpt1srkq0rw60" path="res://nodes/parallaxBackground/parallax_background.tscn" id="4_y8lrm"]
+[ext_resource type="PackedScene" uid="uid://bjtwdprt8u0qd" path="res://nodes/parallaxFloorCeiling/parallax_floor_ceiling.tscn" id="5_w55l2"]
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_cgeln")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="MainMenu" parent="CanvasLayer" instance=ExtResource("1_c5gsh")]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4nwio")
+autoplay = true
+
+[node name="ParallaxBackground" parent="." instance=ExtResource("4_y8lrm")]
+
+[node name="ParallaxFloorCeiling" parent="." instance=ExtResource("5_w55l2")]
